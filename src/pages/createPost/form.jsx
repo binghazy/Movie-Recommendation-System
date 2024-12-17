@@ -41,12 +41,10 @@ export default function CreatePosts() {
     <form className="community-form" onSubmit={handleSubmit(CreatePost)}>
       <input
         className="input"
-        placeholder="!!! دين ام عنوان"
-        {...register("title")}
-      />
+      <input className="input" placeholder="Title..." {...register("title")} />
       <p style={{ color: "red" }}>{errors.title?.message}</p>
       <textarea
-        placeholder=" !!! اكتبلنا حاجة يخول"
+        placeholder="Type Something"
         {...register("description")}
       />
       <p style={{ color: "red" }}>{errors.description?.message}</p>
