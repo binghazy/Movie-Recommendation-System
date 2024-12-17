@@ -28,13 +28,13 @@ export default function Discovery() {
       <MobileNav />
       <nav className="discovery-nav">
         <Link onClick={handleAnimeClick} to="anime">
-          Tezhom
+          Once
         </Link>
         <Link onClick={handleMangaClick} to="manga">
-          Tezna
+          Twice
         </Link>
-        <Link to="manhwa">Tezo</Link>
-        <Link to="manhua">Tezy</Link>
+        <Link to="manhwa">Third</Link>
+        <Link to="manhua">Fourth</Link>
       </nav>
       <Outlet />
     </section>
