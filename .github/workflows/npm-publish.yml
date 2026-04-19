@@ -1,0 +1,35 @@
+name: Node.js Build and Start
+
+on:
+  push:
+    branches:
+      - main  # Trigger workflow on push to the main branch
+
+jobs:
+  build-node:
+    runs-on: ubuntu-latest
+    container: node:16  # Use Node 16 container
+
+    steps:
+    - name: Check Node.js version
+      run: node --version
+
+    - name: Check npm version
+      run: npm --version
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Cache node modules
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-modules-
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Start app
+      run: npm start

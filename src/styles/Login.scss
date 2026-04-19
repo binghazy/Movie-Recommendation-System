@@ -1,0 +1,163 @@
+.login-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: calc(100vh - 3rem);
+    width: 100%;
+    padding: 1.35rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    background: linear-gradient(180deg, rgba(46, 12, 16, 0.95), rgba(24, 8, 10, 0.95));
+
+    & > article {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        min-height: 300px;
+        width: min(100%, 430px);
+        padding: 2rem 1.4rem;
+        margin-top: 0.25rem;
+        background-color: rgba(255, 255, 255, 0.02);
+
+        & > h1 {
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        & > p {
+            text-align: center;
+            color: var(--sub-text-color);
+            margin-bottom: 0.4rem;
+        }
+
+        .auth-mode-toggle {
+            display: flex;
+            gap: 0.55rem;
+            width: 100%;
+
+            .mode-btn {
+                cursor: pointer;
+                flex: 1;
+                height: 2.4rem;
+                border-radius: 999px;
+                border: 1px solid var(--border-color);
+                background-color: rgba(255, 255, 255, 0.02);
+                color: var(--sub-text-color);
+                font-weight: 700;
+                transition:
+                    color 0.2s ease,
+                    background-color 0.2s ease,
+                    border-color 0.2s ease;
+
+                &.active {
+                    color: var(--text-color);
+                    border-color: rgba(239, 68, 68, 0.6);
+                    background-color: rgba(239, 68, 68, 0.2);
+                }
+            }
+        }
+
+        .email-auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            width: 100%;
+
+            input {
+                width: 100%;
+                height: 2.7rem;
+                border-radius: 10px;
+                border: 1px solid var(--border-color);
+                padding: 0 0.75rem;
+                color: var(--text-color);
+                background-color: rgba(255, 255, 255, 0.03);
+                outline: none;
+
+                &::placeholder {
+                    color: var(--sub-text-color);
+                }
+
+                &:focus {
+                    border-color: rgba(239, 68, 68, 0.58);
+                    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.18);
+                }
+            }
+        }
+
+        .auth-divider {
+            font-size: 0.78rem;
+            color: var(--sub-text-color);
+            margin: -0.15rem 0;
+        }
+
+        .email-auth-btn,
+        .google-auth-btn {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 2.9rem;
+            width: 100%;
+            border-radius: 999px;
+            font-weight: 700;
+            color: #2b0808;
+            outline: none;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            background-color: white;
+            transition:
+                background-color 0.2s ease,
+                transform 0.2s ease;
+    
+            &:hover {
+                background-color: rgb(237, 235, 235);
+                transform: translateY(-1px);
+            }
+
+            &:disabled {
+                cursor: not-allowed;
+                opacity: 0.65;
+                transform: none;
+            }
+    
+            & > svg {
+                margin-right: 10px;
+                font-size: 1.15rem;
+            }
+        }
+
+        .email-auth-btn {
+            color: var(--text-color);
+            border: 1px solid rgba(239, 68, 68, 0.45);
+            background-color: rgba(239, 68, 68, 0.22);
+
+            &:hover {
+                background-color: rgba(239, 68, 68, 0.32);
+            }
+        }
+
+        .login-error {
+            margin-top: -0.15rem;
+            font-size: 0.82rem;
+            text-align: center;
+            color: #ff9ea7;
+        }
+    }
+    
+}
+
+@media screen and (max-width: 1100px) {
+    .login-page {
+        height: 100vh;
+        border-radius: var(--radius-md);
+        padding: 1rem;
+    }
+}
+

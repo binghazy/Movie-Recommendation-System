@@ -1,0 +1,53 @@
+//React hook form library components...
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+//Firebase...
+import { addDoc, collection } from "firebase/firestore";
+import { database, auth } from "../../config/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+//Styles...
+import "../../styles/Form.scss";
+
+export default function CreatePosts() {
+  const [user] = useAuthState(auth);
+
+  const schema = yup.object().shape({
+    title: yup.string().required("You must add a title."),
+    description: yup.string().required("You must add a description."),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const postReference = collection(database, "userPosts");
+
+  const CreatePost = async (data) => {
+    if (!user) {
+      return;
+    }
+
+    await addDoc(postReference, {
+      ...data,
+      username: user?.displayName,
+      userId: user?.uid,
+      userImg: user.photoURL || "",
+    });
+  };
+
+  return (
+    <form className="community-form" onSubmit={handleSubmit(CreatePost)}>
+      <input className="input" placeholder="Title..." {...register("title")} />
+      <p className="form-error">{errors.title?.message}</p>
+      <textarea placeholder="Type Something" {...register("description")} />
+      <p className="form-error">{errors.description?.message}</p>
+      <input className="submit-btn" type="submit" />
+    </form>
+  );
+}

@@ -1,0 +1,285 @@
+.anime-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 1.1rem;
+  padding-bottom: 1.6rem;
+
+  .anime-nav-filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--border-color);
+
+    h2 {
+      font-size: clamp(1.2rem, 2vw, 1.45rem);
+      font-weight: 700;
+    }
+
+    select {
+      cursor: pointer;
+      outline: none;
+      min-width: 130px;
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      border-radius: 999px;
+      padding: 0.45rem 0.8rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-color);
+      background-color: rgba(239, 68, 68, 0.12);
+    }
+
+    .movie-filter-menu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      justify-content: flex-end;
+
+      .movie-filter-btn {
+        cursor: pointer;
+        border: 1px solid rgba(239, 68, 68, 0.35);
+        border-radius: 999px;
+        padding: 0.45rem 0.75rem;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--sub-text-color);
+        background-color: rgba(239, 68, 68, 0.08);
+        transition:
+          color 0.2s ease,
+          border-color 0.2s ease,
+          background-color 0.2s ease,
+          transform 0.2s ease;
+
+        &:hover {
+          color: var(--text-color);
+          border-color: rgba(239, 68, 68, 0.58);
+          background-color: rgba(239, 68, 68, 0.16);
+          transform: translateY(-1px);
+        }
+
+        &.active {
+          color: var(--text-color);
+          border-color: rgba(239, 68, 68, 0.68);
+          background-color: rgba(239, 68, 68, 0.26);
+          box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.32);
+        }
+      }
+    }
+  }
+
+  .anime-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1.15rem;
+    margin-top: 1.25rem;
+    width: 100%;
+
+    .card {
+      width: 100%;
+      text-decoration: none;
+
+      a {
+        text-decoration: none;
+      }
+
+      .card-image {
+        width: 100%;
+        aspect-ratio: 2 / 3;
+        border-radius: 12px;
+        object-fit: cover;
+        box-shadow: 0 10px 24px rgba(8, 12, 20, 0.35);
+        transition:
+          transform 0.2s ease,
+          filter 0.2s ease;
+
+        &:hover {
+          transform: translateY(-3px);
+          filter: brightness(1.06);
+        }
+      }
+
+      .info {
+        margin-top: 0.55rem;
+      }
+
+      .card-title {
+        font-size: 0.86rem;
+        font-weight: 600;
+        line-height: 1.5;
+        color: var(--text-color);
+      }
+    }
+  }
+
+  .movie-grid {
+    .movie-card {
+      display: block;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 0.55rem;
+      background-color: rgba(255, 255, 255, 0.02);
+      transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        border-color: rgba(239, 68, 68, 0.45);
+        background-color: rgba(239, 68, 68, 0.08);
+      }
+
+      .card-image {
+        box-shadow: none;
+      }
+
+      .movie-meta {
+        margin-top: 0.2rem;
+        font-size: 0.76rem;
+        color: var(--sub-text-color);
+      }
+
+      .tmdb-link {
+        margin-top: 0.6rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.2rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--green-color);
+      }
+    }
+  }
+
+  .page-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    width: 100%;
+
+    &.more {
+      justify-content: space-between;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 999px;
+      padding: 0.58rem 1.15rem;
+      font-weight: 700;
+      color: #2b0808;
+      background-color: var(--green-color);
+      transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+
+      &:hover {
+        background-color: #ff8d8d;
+        transform: translateY(-1px);
+      }
+    }
+
+    .page-indicator {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--sub-text-color);
+    }
+  }
+}
+
+.section-status {
+  margin-top: 1.1rem;
+  color: var(--sub-text-color);
+}
+
+.back-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.6rem;
+  border-radius: 999px;
+  font-size: 1.8rem;
+  color: var(--green-color);
+}
+
+.more-info-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    width: 200px;
+    border-radius: 12px;
+  }
+
+  h2 {
+    margin-top: 0.6rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35rem;
+    margin-top: 0.7rem;
+
+    span {
+      font-size: 0.72rem;
+      padding: 0.28rem 0.55rem;
+      border-radius: 999px;
+      color: var(--text-color);
+      background-color: rgba(239, 68, 68, 0.16);
+    }
+  }
+
+  h3 {
+    align-self: stretch;
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  p {
+    color: var(--sub-text-color);
+    line-height: 1.7;
+  }
+}
+
+.comment-reviews {
+  margin-top: 2.5rem;
+
+  & > h2 {
+    padding-bottom: 0.8rem;
+    margin-bottom: 1.4rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .anime-page {
+    margin-top: 0.3rem;
+
+    .anime-nav-filter {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .movie-filter-menu {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+
+    .anime-grid {
+      grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+      gap: 0.9rem;
+    }
+  }
+}
+
