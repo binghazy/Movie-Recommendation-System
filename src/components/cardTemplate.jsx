@@ -1,3 +1,4 @@
+import "../styles/Manga.scss"
 //import "../styles/SideMenu.scss"
 import {Link} from "react-router-dom"
 import { nameInput } from "../store"
@@ -21,7 +22,7 @@ export default function CardTemplate ({title, image, id, customClass, sidebar, f
                 </Link>
             }
             {sidebar &&
-                <Link onClick={handleAnimeClick} to={`/discovery/anime/moreInfo/${id}`}>
+                <Link onClick={handleAnimeClick} to={`discovery/anime/moreInfo/${id}`}>
                     <img className="sideMenu-images" src={image} alt={title}/>
                 </Link>
             }

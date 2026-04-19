@@ -8,45 +8,27 @@ import "../styles/Anime.scss"
 
 export default function ManhwaPage () {
     const [topManhwa, setTopManhwa] = useState([])
-    const [loading, setLoading] = useState(false)
-    const [errorMessage, setErrorMessage] = useState("")
+    const [limit, setLimit] = useState("15")
 
     //The localStorage maintains the page you were on...
-    const [page, setPage] = useState(Number(localStorage.getItem("currentManhwaPage")) || 1)
-
-    useEffect(() => {
-        localStorage.setItem("currentManhwaPage", String(page))
-    }, [page])
+    const [page, setPage] = useState(localStorage.getItem("currentManhwaPage") || "1")
+    localStorage.setItem("currentManhwaPage", page)
 
     async function getTopManhwa() {
-        try {
-            setLoading(true)
-            setErrorMessage("")
-            const apiFetch = await fetch(`https://api.jikan.moe/v4/top/manga?type=manhwa&limit=15&page=${page}`)
-
-            if (!apiFetch.ok) {
-                throw new Error("Could not load manhwa page. Please try again.")
-            }
-
-            const data = await apiFetch.json();
-            setTopManhwa(Array.isArray(data?.data) ? data.data : [])
-        } catch (error) {
-            setTopManhwa([])
-            setErrorMessage(error?.message || "Could not load manhwa page.")
-        } finally {
-            setLoading(false)
-        }
+        const apiFetch = await fetch(`https://api.jikan.moe/v4/top/manga?type=manhwa&limit=${limit}&page=${page}`)
+        const data = await apiFetch.json();
+        setTopManhwa(data.data)
     }
 
     const handleMore = (e) => {
         scroll.scrollToTop();
         e.currentTarget.parentElement.classList.add("more");
-        setPage(prev => prev + 1)
+        setPage(prev => +prev + +"1")
     }
     const handleLess = (e) => {
         scroll.scrollToTop();
         e.currentTarget.parentElement.classList.remove("more")
-        setPage(prev => Math.max(prev - 1, 1))
+        setPage(prev => +prev - +"1")
     }
 
     useEffect(() => {
@@ -58,8 +40,6 @@ export default function ManhwaPage () {
             <nav className="anime-nav-filter">
                 <h2>Top Manhwa</h2>
             </nav>
-            {loading && <p className="section-status">Loading manhwa...</p>}
-            {!loading && errorMessage && <p className="section-status">{errorMessage}</p>}
             <div className="anime-grid">
                 {
                     topManhwa.map((item) => (
@@ -75,7 +55,6 @@ export default function ManhwaPage () {
             </div>
             <div className="page-nav">
                 {page > 1 && <button onClick={handleLess}>Go Back</button>}
-                <span className="page-indicator">Page {page}</span>
                 <button onClick={handleMore}>Next Page</button>
             </div>
         </section>

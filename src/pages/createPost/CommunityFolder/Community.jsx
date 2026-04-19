@@ -6,8 +6,7 @@ import MobileNav from "../../Mobile-nav"
 
 //Firebase...
 import {getDocs, collection} from "firebase/firestore"
-import {database, auth} from "../../../config/firebase"
-import { useAuthState } from "react-firebase-hooks/auth"
+import {database} from "../../../config/firebase"
 
 //Styles...
 import "../../../styles/Community.scss"
@@ -15,7 +14,6 @@ import "../../../styles/Community.scss"
 
 export default function Community () {
 
-    const [user] = useAuthState(auth)
     const [userPosts, setUserPosts] = useState(null)
 
     const postReference = collection(database, "userPosts")
@@ -31,9 +29,8 @@ export default function Community () {
     return (
         <section className="community-page">
             <MobileNav/>
-            <h2>Community</h2>
-            {user && <CreatePosts/>}
-            {!user && <p className="community-auth-note">Sign in to create posts and like comments.</p>}
+            <h2>Community Page</h2>
+            <CreatePosts/>
             <section className="user-posts-container">
                 {
                     userPosts?.map((post, i) => (

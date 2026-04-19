@@ -8,49 +8,32 @@ import "../styles/Manga.scss";
 export default function Manga() {
   const [topManhwa, setTopManhwa] = useState([]);
   const [filter, setFilter] = useState("bypopularity");
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [limit, setLimit] = useState("15");
 
-  const [page, setPage] = useState(Number(localStorage.getItem("currentMangaPage")) || 1);
-
-  useEffect(() => {
-    localStorage.setItem("currentMangaPage", String(page));
-  }, [page]);
+  const [page, setPage] = useState(
+    localStorage.getItem("currentMangaPage") || "1"
+  );
+  localStorage.setItem("currentMangaPage", page);
 
   useEffect(() => {
     getTopManhwa();
   }, [page, filter]);
 
   async function getTopManhwa() {
-    try {
-      setLoading(true);
-      setErrorMessage("");
-
-      const apiFetch = await fetch(
-        `https://api.jikan.moe/v4/top/manga?type=manga&filter=${filter}&limit=15&page=${page}`
-      );
-
-      if (!apiFetch.ok) {
-        throw new Error("Could not load manga page. Please try again.");
-      }
-
-      const data = await apiFetch.json();
-      setTopManhwa(Array.isArray(data?.data) ? data.data : []);
-    } catch (error) {
-      setTopManhwa([]);
-      setErrorMessage(error?.message || "Could not load manga page.");
-    } finally {
-      setLoading(false);
-    }
+    const apiFetch = await fetch(
+      `https://api.jikan.moe/v4/top/manga?type=manga&filter=${filter}&limit=${limit}&page=${page}`
+    );
+    const data = await apiFetch.json();
+    setTopManhwa(data.data);
   }
 
   const handleMore = (e) => {
     e.currentTarget.parentElement.classList.add("more");
-    setPage((prev) => prev + 1);
+    setPage((prev) => +prev + +"1");
   };
   const handleLess = (e) => {
     e.currentTarget.parentElement.classList.remove("more");
-    setPage((prev) => Math.max(prev - 1, 1));
+    setPage((prev) => +prev - +"1");
   };
 
   return (
@@ -70,8 +53,6 @@ export default function Manga() {
         </select>
       </header>
       {/* <h2>Top Anime </h2> */}
-      {loading && <p className="section-status">Loading manga...</p>}
-      {!loading && errorMessage && <p className="section-status">{errorMessage}</p>}
       <div className="manhwa-grid">
         {topManhwa.map((item) => (
           <CardTemplate
@@ -85,7 +66,6 @@ export default function Manga() {
       </div>
       <div className="page-nav">
         {page > 1 && <button onClick={handleLess}>Go Back</button>}
-        <span className="page-indicator">Page {page}</span>
         <button onClick={handleMore}>Next Page</button>
       </div>
     </section>

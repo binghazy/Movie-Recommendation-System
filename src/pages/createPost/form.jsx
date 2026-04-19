@@ -29,24 +29,20 @@ export default function CreatePosts() {
   const postReference = collection(database, "userPosts");
 
   const CreatePost = async (data) => {
-    if (!user) {
-      return;
-    }
-
     await addDoc(postReference, {
       ...data,
       username: user?.displayName,
       userId: user?.uid,
-      userImg: user.photoURL || "",
+      userImg: user.photoURL,
     });
   };
 
   return (
     <form className="community-form" onSubmit={handleSubmit(CreatePost)}>
       <input className="input" placeholder="Title..." {...register("title")} />
-      <p className="form-error">{errors.title?.message}</p>
+      <p style={{ color: "red" }}>{errors.title?.message}</p>
       <textarea placeholder="Type Something" {...register("description")} />
-      <p className="form-error">{errors.description?.message}</p>
+      <p style={{ color: "red" }}>{errors.description?.message}</p>
       <input className="submit-btn" type="submit" />
     </form>
   );

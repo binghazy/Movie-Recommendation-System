@@ -3,63 +3,59 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-bottom: 1rem;
-    padding: 0.95rem;
-    border-radius: 12px;
-    width: 100%;
-    border: 1px solid var(--border-color);
-    background-color: rgba(255, 255, 255, 0.02);
+    margin-bottom: 30px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 90%;
+    background-color: var(--nav-bg-color);
 
 
     .display-user-info {
         display: flex;
         align-items: center;
-        font-size: 1rem;
-        font-weight: 600;
-        color: var(--text-color);
+        font-size: 20px;
 
         .comment-image-styling {
             height: 30px;
             width: 30px;
             border-radius: 50%;
             margin-right: 10px;
-            object-fit: cover;
         }
 
         .date-of-comment {
-            font-size: 0.7rem;
+            font-size: 10px;
             margin-left: 10px;
-            color: var(--sub-text-color);
+            color: rgb(197, 196, 196);
         }
     }
 
     .actual-comment-container {
+        line-height: 20px;
         margin-top: 10px;
         margin-bottom: 10px;
-        line-height: 1.7;
-        font-size: 0.88rem;
-        color: var(--sub-text-color);
+        line-height: 30px;
+        font-size: 13px;
+        color: rgb(197, 196, 196);
     }
 
     .comment-more-btn-cont {
-        margin-bottom: 10px;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
 
         .see-more-or-less-btn {
             cursor: pointer;
-            font-size: 0.72rem;
-            padding: 0.5rem 0.85rem;
-            border-radius: 999px;
+            font-size: 10px;
+            padding: 10px;
+            border-radius: 50px;
             border: none;
-            color: #2b0808;
+            height: 35px;
+            width: 90px;
+            color: white;
             background-color: var(--green-color);
         }
     }
 
-    & > span {
-        font-size: 0.78rem;
-        font-weight: 600;
-        color: var(--sub-text-color);
-    }
 }
 
 
@@ -75,13 +71,10 @@
 
     .display-user-info {
         flex-direction: column;
-        align-items: flex-start;
 
 
         & > span {
             margin-top: 10px;
-            margin-left: 0;
         }
     }
 }
-

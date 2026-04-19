@@ -4,7 +4,7 @@ import "./comment.scss"
 export default function Comment ({data, review, score, user, image}) {
 
     const [expanded, setExpanded] = useState(false)
-    const commentPreview = review?.length > 100 ? `${review.slice(0, 100)}...` : review;
+    const commentPreview = `${review.slice(0, 100)}...`
 
     return (
         <div className="comment-container">

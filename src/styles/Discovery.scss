@@ -1,16 +1,12 @@
 .discovery-page {
   margin: 0 auto;
-  height: calc(100vh - 3rem);
-  width: 100%;
-  padding: 1.35rem;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  color: var(--text-color);
-  background: linear-gradient(180deg, rgba(46, 12, 16, 0.95), rgba(24, 8, 10, 0.95));
+  height: 100vh;
+  width: 60%;
+  color: white;
+  background-color: black;
   font-family: var(--main-font);
 
-  overflow-y: auto;
+  overflow-y: scroll;
 
   &::-webkit-scrollbar {
     display: none;
@@ -22,54 +18,107 @@
   scrollbar-width: none; /* Firefox */
 
   & > .discovery-nav {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.65rem;
-    width: 100%;
-    margin: 0 auto 1rem;
-    padding-bottom: 1rem;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding-bottom: 10px;
     border-bottom: 1px solid var(--border-color);
 
     & > a {
       text-decoration: none;
-      border-radius: 999px;
-      padding: 0.5rem 1rem;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--sub-text-color);
-      background-color: rgba(255, 255, 255, 0.02);
-      transition:
-        color 0.25s ease,
-        background-color 0.25s ease;
+      margin-right: 20px;
+      font-size: 20px;
+      color: white;
+      transition: color 0.3s ease;
 
       &:hover {
-        color: var(--text-color);
-        background-color: rgba(239, 68, 68, 0.12);
-      }
-
-      &.active {
-        color: var(--text-color);
-        background-color: rgba(239, 68, 68, 0.2);
-        box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.3);
+        color: var(--green-color);
       }
     }
   }
 }
 
-@media screen and (max-width: 1100px) {
+.mobile-nav {
+  //Only will appear when it reaches certain window dimensions...
+  position: relative;
+  display: none;
+  align-items: center;
+  justify-content: end;
+  height: 40px;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 10px;
+  font-size: 45px;
+  color: white;
+
+  //background-color: red;
+
+  .hamburger {
+    cursor: pointer;
+    position: relative;
+    z-index: 6;
+  }
+
+  .mobile-bg {
+    position: absolute;
+    z-index: 5;
+    width: 0;
+    height: 0;
+    margin: 30px 0 20px 20px;
+    background: radial-gradient(circle, #039750, #039750);
+    border-radius: 50%;
+    transition: 0.3s ease;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      left: 160px;
+      bottom: 60px;
+      list-style: none;
+      transition: color 0.3s ease-in;
+
+      & > a {
+        text-decoration: none;
+        color: transparent;
+        text-align: end;
+        cursor: pointer;
+        font-size: 20px;
+        margin-top: 25px;
+      }
+    }
+
+    &.active {
+      display: block;
+      width: 520px;
+      height: 520px;
+      transform: translate(45%, 5%);
+
+      & > ul > a {
+        color: white;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 990px) {
   .discovery-page {
-    height: 100vh;
+    overflow-x: hidden;
     width: 100%;
-    padding: 1rem;
-    border-radius: var(--radius-md);
+  }
+
+  .mobile-nav {
+    display: flex;
   }
 }
 
-@media screen and (max-width: 620px) {
+@media screen and (max-width: 455px) {
   .discovery-page > .discovery-nav > a {
-    font-size: 0.84rem;
-    padding: 0.42rem 0.75rem;
+    font-size: 14px;
   }
 }
-
+@media screen and (max-width: 345px) {
+  .discovery-page > .discovery-nav > a {
+    font-size: 10px;
+  }
+}

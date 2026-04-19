@@ -31,7 +31,7 @@ export default function MoreInfo() {
 
     //Anonymis helpers...
     const {id} = useParams();
-    const type = urlName === "manga" || urlName === "anime" ? urlName : "manga"
+    const type = urlName == "manga" || urlName == "anime" ? urlName : "manga"
 
     //React state...
     const [user] = useAuthState(auth);
@@ -83,14 +83,9 @@ export default function MoreInfo() {
     //-----------------------------------------------
 
     const [userBM, setUserBM] = useState([]);
-    const bookmarkType = nameTypeState || type;
     
     
     const addUserBookMark = async () => {
-        if (!user || !result?.data) {
-            return;
-        }
-
         const docRef = doc(database, "userInfo", user?.uid)
 
         if (!userBM.includes(result.data.title)) {
@@ -98,7 +93,7 @@ export default function MoreInfo() {
             await updateDoc(docRef, {
                 userBookmarks: arrayUnion({
                     mal_id: result.data.mal_id,
-                    type: bookmarkType,
+                    type: nameTypeState,
                     title: result.data.title,
                     image: result.data?.images?.jpg?.large_image_url,
                     synopsis: result.data.synopsis,
@@ -113,7 +108,7 @@ export default function MoreInfo() {
             await updateDoc(docRef, {
                 userBookmarks: arrayRemove({
                     mal_id: result.data.mal_id,
-                    type: bookmarkType,
+                    type: nameTypeState,
                     title: result.data.title,
                     image: result.data?.images?.jpg?.large_image_url,
                     synopsis: result.data.synopsis,
@@ -133,16 +128,11 @@ export default function MoreInfo() {
         setUserBM(data.data().userBookmarks.map(doc => doc.title))
     }
 
-    const airedFrom = result.data?.aired?.from
-        ? new Date(result.data.aired.from).toLocaleDateString()
-        : "Unknown";
-    const airedTo = result.data?.aired?.to
-        ? new Date(result.data.aired.to).toLocaleDateString()
-        : "Present";
+    const none = "No info..."
 
     
     return (
-        <section className="more-info-page">
+        <section>
             <Link to={-1} className="back-arrow">
                 <MdOutlineArrowBack/>
             </Link>
@@ -155,14 +145,20 @@ export default function MoreInfo() {
                     <button onClick={addUserBookMark} className="bookmark-btn">
                         {userBM.includes(result.data.title) ? <BsFillBookmarkDashFill/> : "Add to Bookmarks"}
                     </button>}
-                    <a href={result.data.url} target="_blank" rel="noreferrer">
-                        <button className="external-link-btn">
-                            <SiMyanimelist />
-                            Open on MyAnimeList
+                    <a href={result.data.url} target="_blank">
+                        <button style={{
+                            backgroundColor: "#2E51A2", 
+                            color: "white", 
+                            height: "35px", 
+                            width: "200px", 
+                            cursor: "pointer", 
+                            marginBottom: "10px"
+                        }}>
+                            <SiMyanimelist style={{fontSize: "20px"}}/>
                         </button>
                     </a>
-                    <p className="rating-pill">
-                        <AiFillStar />
+                    <p style={{display: "flex", alignItems: "center"}}>
+                        <AiFillStar style={{color: "yellow", fontSize: "18px", marginRight: "2px"}}/>
                         {result.data.score}
                     </p>
                     <div className="tags">
@@ -179,7 +175,9 @@ export default function MoreInfo() {
                 <h2>Details</h2>
                 <ul className="more-details">
                     <li>Release: {result.data?.year}</li>
-                    <li>{`Aired: ${airedFrom} - ${airedTo}`}</li>
+                    <li>{
+                        `Aired: ${new Date(result.data?.aired?.from).toLocaleString()} - ${new Date(result.data?.aired?.to).toLocaleString()}`} 
+                    </li>
                     <li>Rating: {result.data?.rating}</li>
                     <li>Status: {result.data?.status}</li>
                 </ul>

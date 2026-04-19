@@ -23,7 +23,7 @@ export default function BMCard ({image, title, synopsis, score, status, mal_id, 
             <img src={image} alt="cover image of bookmarked item you have"/>
             <div className="card-details">
                 <h2>{title}</h2>
-                <p>{synopsis ? `${synopsis.substring(0, 300)}...` : "No synopsis available."}</p>
+                <p>{synopsis.substring(0, 300)}......</p>
                 <div className="sub-footer">
                     <span className="rating">Rating: {score}</span>
                     <span className="status">Status: {status}</span>

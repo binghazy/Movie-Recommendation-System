@@ -9,49 +9,32 @@ import "../styles/Anime.scss"
 export default function AnimePage () {
     const [topAnime, setTopAnime] = useState([])
     const [filter, setFilter] = useState("airing")
-    const [loading, setLoading] = useState(false)
-    const [errorMessage, setErrorMessage] = useState("")
+
+    const [limit, setLimit] = useState("15")
 
     //The localStorage maintains the page you were on...
-    const [page, setPage] = useState(Number(localStorage.getItem("currentAnimePage")) || 1)
-
-    useEffect(() => {
-         localStorage.setItem("currentAnimePage", String(page))
-    }, [page])
+    const [page, setPage] = useState(localStorage.getItem("currentAnimePage") || "1")
+    localStorage.setItem("currentAnimePage", page)
 
     useEffect(() => {
          getTopAnime()
     }, [page, filter])
 
     async function getTopAnime() {
-        try {
-            setLoading(true)
-            setErrorMessage("")
-            const apiFetch = await fetch(`https://api.jikan.moe/v4/top/anime?limit=15&page=${page}&filter=${filter}`)
-
-            if (!apiFetch.ok) {
-                throw new Error("Could not load anime page. Please try again.")
-            }
-
-            const data = await apiFetch.json();
-            setTopAnime(Array.isArray(data?.data) ? data.data : [])
-        } catch (error) {
-            setTopAnime([])
-            setErrorMessage(error?.message || "Could not load anime page.")
-        } finally {
-            setLoading(false)
-        }
+        const apiFetch = await fetch(`https://api.jikan.moe/v4/top/anime?limit=${limit}&page=${page}&filter=${filter}`)
+        const data = await apiFetch.json();
+        setTopAnime(data.data)
     }
 
     const handleMore = (e) => {
         scroll.scrollToTop();
         e.currentTarget.parentElement.classList.add("more");
-        setPage(prev => prev + 1)
+        setPage(prev => +prev + +"1")
     }
     const handleLess = (e) => {
         scroll.scrollToTop();
         e.currentTarget.parentElement.classList.remove("more")
-        setPage(prev => Math.max(prev - 1, 1))
+        setPage(prev => +prev - +"1")
     }
 
     return (
@@ -69,8 +52,6 @@ export default function AnimePage () {
                 </select>
             </nav>
             {/* <h2>Top Anime </h2> */}
-            {loading && <p className="section-status">Loading anime...</p>}
-            {!loading && errorMessage && <p className="section-status">{errorMessage}</p>}
             <div className="anime-grid">
                 {
                     topAnime?.map((item) => (
@@ -86,7 +67,6 @@ export default function AnimePage () {
             </div>
             <div className="page-nav">
                 {page > 1 && <button onClick={handleLess}>Go Back</button>}
-                <span className="page-indicator">Page {page}</span>
                 <button onClick={handleMore}>Next Page</button>
             </div>
         </section>

@@ -35,12 +35,12 @@ export default function Collection () {
     return (
         <section className="collection-page">
             {!user && 
-                <h1 className="collection-empty-auth">Sign in to save and view your bookmarks.</h1>
+                <h1 style={{color: "white", textAlign: "center", marginTop: "30px"}}>Sign in for Collections...</h1>
             }
             <MobileNav/>
             {user &&
                 <div className="user-bookmarks">
-                    <h1 className="bm-header">Bookmarks</h1>
+                    <h1 className="bm-header">BookMarks</h1>
                     {
                     userData?.map((item,i) => 
                         <BMCard
@@ -56,7 +56,9 @@ export default function Collection () {
                     )
                     }
                     {userData.length < 1 && 
-                        <h4 className="collection-empty-list">No bookmarks yet.</h4>
+                        <h4 style={{color: "white", textAlign: "center", padding: "15px"}}>
+                            No Collections...
+                        </h4>
                     }
                 </div>
             }
